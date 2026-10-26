@@ -33,6 +33,34 @@ jobs:
 
             - name: Archive Test Result
               uses: actions/upload-artifact@v7
+              # generated of the file is test-results.xml when running `npm test`
               with:
                   name: Mocha-Test-Result
                   path: test-results.xml
+                  retention-days: 2
+
+    code-coverage:
+        name: Code Coverage
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v7
+
+            - name: Setup NodeJS Version
+              uses: actions/setup-node@v7
+              with:
+                  node-version: 20
+
+            - name: Install Dependencies
+              run: npm install
+
+            - name: Check Code Coverage
+              run: npm run coverage
+
+            - name: Archive Test Result
+              uses: actions/upload-artifact@v7
+              # generated of the folder is coverage/ when running `npm run coverage`
+              with:
+                  name: Code-Coverage-Result
+                  path: coverage
+                  retention-days: 2
