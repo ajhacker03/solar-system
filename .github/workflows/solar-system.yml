@@ -41,6 +41,7 @@ jobs:
               run: npm test
 
             - name: Archive Test Result
+              id: test-results
               # always run this step even the above step is success or failure
               if: always()
               uses: actions/upload-artifact@v7
